@@ -32,3 +32,8 @@ https://developer.android.com/develop/ui/views/haptics/haptic-feedback#java
 
 För att varna användaren med ljud används MediaPlayer
 https://developer.android.com/guide/topics/media/mediaplayer
+
+### Designval
+
+Ärligt - appen är inte snygg eller särskilt användarevänlig. Det finns en knapp som inte används (rest från MainActivity som skapades i början av projektet), det är många siffror som rör på sig mycket och det visuella designet av navigeringen är oklar.
+Dock har jag försökt att implementera lämplig feedback för själva hastighetsmätaren. Användaren får feedback genom flera modaliteter att han kör för fort, kör lämpligt eller på gränsen.
