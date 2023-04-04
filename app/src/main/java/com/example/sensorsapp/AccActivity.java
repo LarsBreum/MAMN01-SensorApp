@@ -7,6 +7,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.media.MediaPlayer;
+import android.media.RingtoneManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -52,7 +53,8 @@ public class AccActivity extends AppCompatActivity implements SensorEventListene
         //Gets a list of all sensors
         List<Sensor> deviceSensors = sensorManager.getSensorList(Sensor.TYPE_ALL);
         this.vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-        //this.mediaPlayer = MediaPlayer.create(context, R.raw.)
+
+        this.mediaPlayer = MediaPlayer.create(getApplicationContext(), RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
 
 
         this.startTime = Instant.now();
@@ -63,8 +65,6 @@ public class AccActivity extends AppCompatActivity implements SensorEventListene
         this.toggleButton = (Button) findViewById(R.id.button_toggle);
 
         this.speed = 0.0;
-
-
 
         toggleButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -81,7 +81,6 @@ public class AccActivity extends AppCompatActivity implements SensorEventListene
         });
 
     }
-
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void driver(float xAcc, float yacc, float zAcc) {
         Instant currentTime = Instant.now();
@@ -99,14 +98,14 @@ public class AccActivity extends AppCompatActivity implements SensorEventListene
         if(speed > 40+2) {
             Toast.makeText(this, "You're driving too fast", Toast.LENGTH_SHORT).show();
             vibrator.vibrate(500);
-            commandView.setTextColor(Color.parseColor("#FFCC1717"));
+            commandView.setTextColor(Color.parseColor("#FFCC1717")); //red
+            mediaPlayer.start();
         } else if(speed > 40) {
-            commandView.setTextColor(Color.parseColor("#ffa500"));
+            commandView.setTextColor(Color.parseColor("#ffa500")); //orange
            // Toast.makeText(this, "Careful now", Toast.LENGTH_SHORT).show();
         } else {
-            commandView.setTextColor(Color.parseColor("#00ff00"));
+            commandView.setTextColor(Color.parseColor("#00ff00")); //green
         }
-
 
         /*
         If (0,0,9) max acc forward
